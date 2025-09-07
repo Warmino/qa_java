@@ -1,7 +1,6 @@
 
 import com.example.Feline;
 import com.example.Lion;
-import com.example.Predator;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,9 +19,6 @@ public class LionTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Mock
-    private Predator predator;
-
-    @Mock
     private Feline feline;
 
     private Lion maleLion;
@@ -31,10 +27,10 @@ public class LionTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
-        when(predator.eatMeat()).thenReturn(List.of("животные", "птицы", "рыба"));
         when(feline.getKittens()).thenReturn(1);
-        maleLion = new Lion(predator, feline, "Самец");
-        femaleLion = new Lion(predator, feline, "Самка");
+        when(feline.eatMeat()).thenReturn(List.of("животные", "птицы", "рыба"));
+        maleLion = new Lion(feline, "Самец");
+        femaleLion = new Lion(feline, "Самка");
     }
 
     @Test
@@ -71,6 +67,6 @@ public class LionTest {
     public void testInvalidSexThrowsException() throws Exception {
         thrown.expect(Exception.class);
         thrown.expectMessage("используйте доступные значения пола животных - самец или самка");
-        new Lion(predator, feline, "Пол не определен"); // Неправильное значение
+        new Lion(feline, "Пол не определен"); // Неправильное значение
     }
 }
