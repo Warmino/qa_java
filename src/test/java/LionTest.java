@@ -31,28 +31,40 @@ public class LionTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
-        when(predator.eatMeat()).thenReturn(List.of("Антилопа", "Зебра"));
-        when(feline.getKittens()).thenReturn(2);
+        when(predator.eatMeat()).thenReturn(List.of("животные", "птицы", "рыба"));
+        when(feline.getKittens()).thenReturn(1);
         maleLion = new Lion(predator, feline, "Самец");
         femaleLion = new Lion(predator, feline, "Самка");
     }
 
     @Test
-    public void testHasMane() {
+    public void testMaleLionHasMane() {
         assertEquals(true, maleLion.doesHaveMane());
+    }
+
+    @Test
+    public void testFemaleLionDoesNotHaveMane() {
         assertEquals(false, femaleLion.doesHaveMane());
     }
 
     @Test
-    public void testGetKittens() {
-        assertEquals(2, maleLion.getKittens());
-        assertEquals(2, femaleLion.getKittens());
+    public void testMaleLionGetKittens() {
+        assertEquals(1, maleLion.getKittens());
     }
 
     @Test
-    public void testGetFood() throws Exception {
-        assertEquals(List.of("Антилопа", "Зебра"), maleLion.getFood());
-        assertEquals(List.of("Антилопа", "Зебра"), femaleLion.getFood());
+    public void testFemaleLionGetKittens() {
+        assertEquals(1, femaleLion.getKittens());
+    }
+
+    @Test
+    public void testMaleLionGetFood() throws Exception {
+        assertEquals(List.of("животные", "птицы", "рыба"), maleLion.getFood());
+    }
+
+    @Test
+    public void testFemaleLionGetFood() throws Exception {
+        assertEquals(List.of("животные", "птицы", "рыба"), femaleLion.getFood());
     }
 
     @Test
